@@ -1,7 +1,14 @@
---- levmar-2.6/CMakeLists.txt	2011-11-29 13:36:19.000000000 -0800
-+++ CMakeLists.txtNEW	2012-02-23 13:12:43.451307537 -0800
-@@ -67,7 +67,7 @@
+--- CMakeLists.txt	2011-11-29 13:36:19.000000000 -0800
++++ CMakeLists.txt.new	2012-02-23 13:30:15.415608973 -0800
+@@ -65,9 +65,14 @@
+   levmar.h misc.h compiler.h
+ )
  
++#install
++install(TARGETS "levmar" ARCHIVE DESTINATION lib)
++file(GLOB HEADERS ${LEVMAR_SOURCE_DIR}/*.h)
++install(FILES ${HEADERS} DESTINATION include/levmar)
++
  # demo program
  IF(BUILD_DEMO)
 -  SET(LIBS levmar)
@@ -9,14 +16,3 @@
  
    LINK_DIRECTORIES(${CMAKE_BINARY_DIR}) # location of the levmar library
    LINK_DIRECTORIES(${LAPACKBLAS_DIR})
-@@ -94,4 +94,10 @@
-   ADD_DEPENDENCIES(lmdemo levmar)
- ENDIF(BUILD_DEMO)
- 
-+#Setup library installation directories
-+file(GLOB HEADERS ${LEVMAR_SOURCE_DIR}/*.h)
-+install(FILES ${HEADERS} DESTINATION include/levmar)
-+
-+install(TARGETS "levmar" ARCHIVE DESTINATION lib)
-+
- #SUBDIRS(matlab)
