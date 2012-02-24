@@ -7,7 +7,7 @@ url="http://www.ics.forth.gr/~lourakis/levmar"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=(lapack)
-makedepends(f2c)
+makedepends=(f2c)
 source=('http://www.ics.forth.gr/~lourakis/levmar/levmar-2.6.tgz'
         'CMakeLists.txt.patch')
 
