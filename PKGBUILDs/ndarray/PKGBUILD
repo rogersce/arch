@@ -6,7 +6,13 @@ pkgdesc="a C++ multidimensional array library designed for NumPy interoperabilit
 url="http://code.google.com/p/ndarray"
 arch=('i686' 'x86_64')
 license=('BSD')
-depends=(levmar eigen2 fftw boost boost-libs python2-numpy)
+depends=()
+optdepends=('levmar: Levengerg Marquardt optimization routines'
+            'eigen2: linear algebra routines for 2D arrays'
+            'fftw: build in fft routines'
+            'boost: Numpy array interoperability'
+            'boost-libs: Numpy array interoperability'
+            'python2-numpy: Numpy array interoperability')
 makedepends=(scons)
 conflicts=()
 replaces=()
