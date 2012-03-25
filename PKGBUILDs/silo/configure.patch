@@ -1,0 +1,37 @@
+--- silo-4.8/configure	2010-09-15 07:48:51.000000000 -0700
++++ silo-4.8NEW/configure	2012-03-25 15:28:59.985580556 -0700
+@@ -26995,30 +26995,11 @@
+     fi
+     { echo "$as_me:$LINENO: checking for supported Qt version" >&5
+ echo $ECHO_N "checking for supported Qt version... $ECHO_C" >&6; }
+-    QtVersion=""
+-    QtVersion2=""
+-    consumeCount=-1
+-    toks=`$QT_BIN/qmake --version`
+-    for tok in $toks; do
+-        if test "$tok" == "Qt"; then
+-            consumeCount=2
+-        fi
+-        if test $consumeCount == 0; then
+-            QtVersion2=$tok
+-            break
+-        else
+-            consumeCount=$((consumeCount-1))
+-        fi
+-    done
+ 
+-    ## Check for supported versions of Qt.
+-    for ver in  4.4.0 4.4.1 4.4.2 4.4.3 4.4.4 4.4.5 \
+-                4.5.0 4.5.1 4.5.2 4.5.3 4.5.4 4.5.5 \
+-                4.6.0 4.6.1 4.6.2 4.6.3 4.6.4 4.6.5 ; do
+-       if test "$QtVersion2" == "$ver"; then
+-           QtVersion=$ver
+-           break
+-       fi
++    IFS=. && QtVersion=($($QT_BIN/qmake --version | egrep -o [0-9]+[.][0-9]+[.][0-9]+)) && unset IFS
++    QtMinVer=(4 4 0)
++    for i in 0 1 2; do
++        if [ ${QtVersion[$i]} -lt ${QtMinVer[$i]} ]; then QtVersion=""; fi
+     done
+ 
+     if test -z "$QtVersion"; then
