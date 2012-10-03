@@ -13,11 +13,11 @@ conflicts=()
 replaces=()
 backup=()
 source=(https://wci.llnl.gov/codes/silo/silo-$pkgver/silo-$pkgver.tar.gz
-        'configure.patch')
+        configure.patch)
 
 build() {
     cd $srcdir
-    patch -p1 -i configure.patch
+    patch $pkgname-$pkgver/configure -i configure.patch
     
     cd $pkgname-$pkgver || exit 1
     ./configure --prefix=/usr --enable-pythonmodule --enable-shared --enable-optimization --with-hdf5=/usr/include,/usr/lib --with-qt=/usr || exit 1
@@ -27,5 +27,4 @@ build() {
 }
 
 md5sums=('b1cbc0e7ec435eb656dc4b53a23663c9'
-         'af735f3bfab6f9098674156d762273cc')
-
+         '68076920670d342006b894c7972d2f04')

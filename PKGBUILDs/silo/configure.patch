@@ -1,6 +1,6 @@
---- src/silo-4.8/configure	2010-09-15 07:48:51.000000000 -0700
-+++ silo-4.8NEW/configure	2012-03-25 15:28:59.985580556 -0700
-@@ -26995,30 +26995,11 @@
+--- silo-4.8/configure	2010-09-15 07:48:51.000000000 -0700
++++ configure	2012-10-02 17:29:20.149214928 -0700
+@@ -26995,40 +26995,13 @@
      fi
      { echo "$as_me:$LINENO: checking for supported Qt version" >&5
  echo $ECHO_N "checking for supported Qt version... $ECHO_C" >&6; }
@@ -28,10 +28,22 @@
 -           QtVersion=$ver
 -           break
 -       fi
-+    IFS=. && QtVersion=($($QT_BIN/qmake --version | egrep -o [0-9]+[.][0-9]+[.][0-9]+)) && unset IFS
-+    QtMinVer=(4 4 0)
-+    for i in 0 1 2; do
-+        if [ ${QtVersion[$i]} -lt ${QtMinVer[$i]} ]; then QtVersion=""; fi
-     done
+-    done
+-
+-    if test -z "$QtVersion"; then
+-        { echo "$as_me:$LINENO: WARNING:   Sorry, but you need Qt version 4.4.0 or higher to compile Silo's silex tool. silex is being disabled" >&5
+-echo "$as_me: WARNING:   Sorry, but you need Qt version 4.4.0 or higher to compile Silo's silex tool. silex is being disabled" >&2;}
+-        SILEX=""
+-    else
+-        { echo "$as_me:$LINENO: result: Qt $QtVersion in $QT_INCLUDE" >&5
+-echo "${ECHO_T}Qt $QtVersion in $QT_INCLUDE" >&6; }
+-    fi
++    QtMinVer=440
++    as_save_IFS=$IFS; IFS=.
++    QtVersion=($($QT_BIN/qmake --version | egrep -o [0-9]+[.][0-9]+[.][0-9]+))
++    IFS=$as_save_IFS
++    QtVersion=$((QtVersion[0]*100 + QtVersion[1]*10 + QtVersion[2]))
++    if [ $QtVersion -lt $QtMinVer ]; then QtVersion=""; fi
  
-     if test -z "$QtVersion"; then
+     # Set the Qt bin,include,lib directories
+ 
